@@ -49,7 +49,12 @@ public class PianoKeyScript : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     }
     
     void Start () {
-        _audioSource = gameObject.AddComponent<AudioSource>();
+
+        _audioSource = gameObject.GetComponent<AudioSource>();
+        if (_audioSource == null)
+        {
+            _audioSource = gameObject.AddComponent<AudioSource>();
+        }
         
         //Getting number of Octave from parent obj name
         if (gameObject.transform.parent.name.Contains("Octave_"))
@@ -89,7 +94,7 @@ public class PianoKeyScript : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     {
         if (_mustBeNamedOnStart)
         {
-            var textObj = gameObject.transform.FindChild("Text");
+            var textObj = gameObject.transform.Find("Text");
 
             if (textObj != null)
             {
